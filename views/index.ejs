@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./styles.css" />
+    <title>Markdown Taking-note App</title>
+</head>
+<body>
+    <div id="wrapper">
+        <div id="notepad">
+            <div id="dashboard">
+                <div id="create__note">
+                    <input id="myInput" type="text" placeholder="search notes" name="myInput"/>
+                    <button id="create_note_btn">new</button>
+                </div>
+                <div id="notes__saved">
+                    <ul id="myUL">
+                        <% notes.forEach(els => { %>
+                            <li>
+                                <a href="/note/<%= els.slug %>"><%= els.name %></a>
+                                <% if (els.note.length >= 27) { %>
+                                    <p id="sample__note"><%= els.note.slice(0, 27) %>...</p>
+                                <% } else { %>
+                                    <p id="sample__note"><%= els.note %></p> 
+                                <% } %>
+                                <p id="createdAt"><%= els.createdAt.toLocaleDateString() %></p>
+                            </li>
+                        <% }) %>
+                    </ul>
+                </div>
+            </div>
+            <div class="display" id="create__form">
+                <form action="/api/v1/notes/new" method="post">
+                    <%- include('form_fields_create') %>
+                </form> 
+            </div>
+        </div>
+    </div>
+    <script src="./script.js"></script>
+</body>
+</html>
